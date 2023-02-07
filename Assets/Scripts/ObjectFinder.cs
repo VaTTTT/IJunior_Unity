@@ -9,13 +9,12 @@ using UnityEngine.TextCore.Text;
 
 public class ObjectFinder : MonoBehaviour
 {
-    [SerializeField] private Collider2D _object;
     [SerializeField] private UnityEvent _reached;
     [SerializeField] private UnityEvent _exited;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision == _object)
+        if (collision.GetComponent<Player>())
         {
             _reached?.Invoke();
         }
@@ -23,7 +22,7 @@ public class ObjectFinder : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision == _object)
+        if (collision.GetComponent<Player>())
         {
             _exited?.Invoke();
         }

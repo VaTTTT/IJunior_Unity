@@ -11,8 +11,7 @@ public class VolumeChanger : MonoBehaviour
     [SerializeField] private float _maximalVolume;
     [SerializeField] private float _timeOfChanging;
 
-    private Coroutine _decreaseVolumeJob;
-    private Coroutine _increaseVolumeJob;
+    private Coroutine _changeVolumeJob;
     private float _startingVolume;
     private float _passedTime;
 
@@ -22,48 +21,34 @@ public class VolumeChanger : MonoBehaviour
     }
 
     public void LinearDecreasing()
-    {      
-        _decreaseVolumeJob = StartCoroutine(DecreaseVolume());
+    {
+        if (_changeVolumeJob != null)
+        {
+            StopCoroutine(_changeVolumeJob);
+        }
+
+        _changeVolumeJob = StartCoroutine(ChangeVolume(_minimalVolume));
     }
 
     public void LinearIncreasing()
     {
-        _increaseVolumeJob = StartCoroutine(IncreaseVolume());
-    }
+        if (_changeVolumeJob != null)
+        {
+            StopCoroutine(_changeVolumeJob);
+        }
+        
+        _changeVolumeJob = StartCoroutine(ChangeVolume(_maximalVolume));
+    }   
 
-    private IEnumerator IncreaseVolume()
+    private IEnumerator ChangeVolume(float targetVolume)
     {
         _passedTime = 0;
         _startingVolume = _audioSource.volume;
 
-        if (_decreaseVolumeJob != null)
-        {
-            StopCoroutine(_decreaseVolumeJob);
-        }
-
         while (_passedTime < _timeOfChanging)
         {
             _passedTime += Time.deltaTime;
-            _audioSource.volume = Mathf.Lerp(_startingVolume, _maximalVolume, _passedTime / _timeOfChanging);
-                       
-            yield return null;
-        }
-    }
-
-    private IEnumerator DecreaseVolume()
-    {
-        _passedTime = 0;
-        _startingVolume = _audioSource.volume;
-
-        if (_increaseVolumeJob != null)
-        {
-            StopCoroutine(_increaseVolumeJob);
-        }
-
-        while (_passedTime < _timeOfChanging)
-        {
-            _passedTime += Time.deltaTime;
-            _audioSource.volume = Mathf.Lerp(_startingVolume, _minimalVolume, _passedTime / _timeOfChanging);
+            _audioSource.volume = Mathf.MoveTowards(_startingVolume, targetVolume, _passedTime / _timeOfChanging);
 
             yield return null;
         }

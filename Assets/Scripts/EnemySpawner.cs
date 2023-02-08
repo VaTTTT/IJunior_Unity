@@ -5,14 +5,12 @@ using UnityEngine.UIElements;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject _enemy;
-    [SerializeField] private float _spawnTime;
+    [SerializeField] private Enemy _enemy;
     [SerializeField] private float _pauseTime;
 
     private SpawnPoint[] _spawnPoints;
     private Vector2 _spawnLocation;
     private Coroutine _spawnEnemiesJob;
-    private float _passedTime;
 
     private void Awake()
     { 
@@ -21,25 +19,15 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        _spawnEnemiesJob = StartCoroutine(SpawnEnemies(_spawnTime, _pauseTime));
+        _spawnEnemiesJob = StartCoroutine(SpawnEnemies(_pauseTime));
     }
 
-    private void Update()
+    private IEnumerator SpawnEnemies(float pauseTime)
     {
-        _passedTime += Time.deltaTime;
-    }
-
-    private IEnumerator SpawnEnemies(float spawnTime, float pauseTime)
-    {
-        int spawnPointNumber;
-
-        _passedTime = 0;
-        
-        while (_passedTime < spawnTime) 
+        for (int i = 0; i < _spawnPoints.Length; i++)
         {
-            spawnPointNumber = Random.Range(0, _spawnPoints.Length);
-            _spawnLocation = new Vector2(_spawnPoints[spawnPointNumber].transform.position.x, _spawnPoints[spawnPointNumber].transform.position.y);
-            GameObject newEnemy = Instantiate(_enemy, _spawnLocation, Quaternion.identity);
+            _spawnLocation = new Vector2(_spawnPoints[i].transform.position.x, _spawnPoints[i].transform.position.y);
+            Enemy newEnemy = Instantiate(_enemy, _spawnLocation, Quaternion.identity);
 
             yield return new WaitForSeconds(pauseTime);
         }

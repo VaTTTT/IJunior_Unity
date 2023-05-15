@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.TextCore.Text;
 
-public class ObjectFinder : MonoBehaviour
+public class PlayerFinder : MonoBehaviour
 {
     [SerializeField] private UnityEvent _reached;
     [SerializeField] private UnityEvent _exited;

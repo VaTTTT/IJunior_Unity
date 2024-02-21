@@ -4048,6 +4048,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pauseTime: 2
+  _isOrderRandom: 1
+  _quantityOfEnemies: 10
 --- !u!1 &2112211207
 GameObject:
   m_ObjectHideFlags: 0

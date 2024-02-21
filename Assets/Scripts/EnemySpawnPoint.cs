@@ -5,26 +5,15 @@ using UnityEngine;
 public class EnemySpawnPoint : MonoBehaviour
 {
     [SerializeField] private Enemy _enemy;
-    [SerializeField] private float _enemyMovementSpeed;
     [SerializeField] private Transform[] _enemyWayPoints;
 
-    public Enemy GetEnemy() 
-    { 
-        return _enemy; 
-    }
-
-    public float GetEnemyMovementSpeed()
-    { 
-        return _enemyMovementSpeed;
-    }
-
-    public Transform GetEnemyWayPoint(int waypointNumber) 
-    { 
-        return _enemyWayPoints[waypointNumber];
-    }
-
-    public int GetEnemyWayPointQuantity()
-    { 
-        return _enemyWayPoints.Length;
+    public void SpawnEnemy()
+    {
+        Enemy newEnemy = Instantiate(_enemy, transform.position, Quaternion.identity);
+        
+        if (newEnemy.TryGetComponent<EnemyMover>(out EnemyMover mover))
+        {
+            mover.SetWayPoints(_enemyWayPoints);
+        }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class WaypointMovement : MonoBehaviour
 {
+    /*
     private int _currentPoint;
 
     private void Start()
@@ -18,7 +19,7 @@ public class WaypointMovement : MonoBehaviour
     {
         Transform target = GetComponentInParent<EnemySpawnPoint>().GetEnemyWayPoint(_currentPoint);
 
-        transform.position = Vector3.MoveTowards(transform.position, target.position, GetComponent<Enemy>().GetMovementSpeed() * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target.position, GetComponent<Enemy>().Speed * Time.deltaTime);
        
         if (transform.position == target.position)
         {
@@ -30,4 +31,5 @@ public class WaypointMovement : MonoBehaviour
             }
         }
     }
+    */
 }

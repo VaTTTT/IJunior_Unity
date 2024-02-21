@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class TreasureSpawner : MonoBehaviour
 {
@@ -9,7 +7,6 @@ public class TreasureSpawner : MonoBehaviour
 
     private TreasureSpawnPoint[] _spawnPoints;
     private Vector2 _spawnLocation;
-    private Coroutine _spawnTreasureJob;
 
     private void Awake()
     { 
@@ -18,7 +15,7 @@ public class TreasureSpawner : MonoBehaviour
 
     private void Start()
     {
-        _spawnTreasureJob = StartCoroutine(SpawnTreasure());
+        StartCoroutine(SpawnTreasure());
     }
 
     private IEnumerator SpawnTreasure()

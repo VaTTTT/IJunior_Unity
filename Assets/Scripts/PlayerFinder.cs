@@ -1,11 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using TMPro.EditorUtilities;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.TextCore.Text;
 
 public class PlayerFinder : MonoBehaviour
 {
